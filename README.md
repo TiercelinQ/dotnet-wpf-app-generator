@@ -2,7 +2,7 @@
 
 > Claude Code generator for **Windows desktop apps** - .NET 10 · C# 14 · WPF · MVVM.
 
-Part of a family of Claude Code generators. See also [flutter-app-generator](https://github.com/TiercelinQ/flutter-app-generator), [python-app-generator](https://github.com/TiercelinQ/python-app-generator), [sf-node-generator](https://github.com/TiercelinQ/sf-node-generator), and [vscode-ext-generator](https://github.com/TiercelinQ/vscode-ext-generator).
+Part of a family of Claude Code generators. See also [electron-app-generator](https://github.com/TiercelinQ/electron-app-generator) [flutter-app-generator](https://github.com/TiercelinQ/flutter-app-generator), [python-app-generator](https://github.com/TiercelinQ/python-app-generator), [sf-node-generator](https://github.com/TiercelinQ/sf-node-generator), and [vscode-ext-generator](https://github.com/TiercelinQ/vscode-ext-generator).
 
 Derived from the Electron App Generator framework (v1.5.0).
 
@@ -30,23 +30,23 @@ Every generated app enforces the same Fluent theming baseline, strict MVVM archi
 
 ## Generated app stack
 
-| Element        | Value                                                                     |
-| -------------- | ------------------------------------------------------------------------- |
-| Target OS      | Windows                                                                   |
-| Runtime        | .NET 10 (LTS)                                                             |
-| Language       | C# 14 - nullable enabled, warnings as errors                              |
-| UI             | WPF - XAML views, WPF UI (lepoco/wpfui) Fluent controls                   |
-| Build          | `dotnet build` on a `.sln` (Debug/Release)                                |
-| Architecture   | Strict MVVM - Views (XAML) · ViewModels · Services · Models               |
-| Styling        | Merged `ResourceDictionary` - `Themes/Tokens.xaml` + `Themes/Styles.xaml` |
-| Icons          | Segoe Fluent Icons glyphs / WPF UI `SymbolIcon`                           |
-| i18n           | `.resx` + `ResourceManager` FR/EN (opt-in)                                |
-| DB             | SQLite (Microsoft.Data.Sqlite, versioned migrations) · JSON · CSV · none (opt-in) |
-| Logging        | Serilog (file + debug sinks, mandatory)                                   |
-| Tests          | xUnit v3 (opt-in)                                                         |
-| Salesforce CLI | `sf` v2 wrapper via `Process` + starter Org Manager (opt-in)              |
-| Packaging      | `dotnet publish` self-contained single-file + ZIP (opt-in)                |
-| Composition    | `IHost` + Microsoft.Extensions.DependencyInjection                        |
+| Element        | Value                                                                                   |
+| -------------- | --------------------------------------------------------------------------------------- |
+| Target OS      | Windows                                                                                 |
+| Runtime        | .NET 10 (LTS)                                                                           |
+| Language       | C# 14 - nullable enabled, warnings as errors                                            |
+| UI             | WPF - XAML views, WPF UI (lepoco/wpfui) Fluent controls                                 |
+| Build          | `dotnet build` on a `.sln` (Debug/Release)                                              |
+| Architecture   | Strict MVVM - Views (XAML) · ViewModels · Services · Models                             |
+| Styling        | Merged `ResourceDictionary` - `Themes/Tokens.xaml` + `Themes/Styles.xaml`               |
+| Icons          | Segoe Fluent Icons glyphs / WPF UI `SymbolIcon`                                         |
+| i18n           | `.resx` + `ResourceManager` FR/EN (opt-in)                                              |
+| DB             | SQLite (Microsoft.Data.Sqlite, versioned migrations) · JSON · CSV · none (opt-in)       |
+| Logging        | Serilog (file + debug sinks, mandatory)                                                 |
+| Tests          | xUnit v3 (opt-in)                                                                       |
+| Salesforce CLI | `sf` v2 wrapper via `Process` + starter Org Manager (opt-in)                            |
+| Packaging      | `dotnet publish` self-contained single-file + ZIP (opt-in)                              |
+| Composition    | `IHost` + Microsoft.Extensions.DependencyInjection                                      |
 | Quality        | Roslyn analyzers + `dotnet format` · XML doc on public API · `Result<T>` error contract |
 
 ---
@@ -77,27 +77,27 @@ Then in Claude Code:
 
 ## Commands
 
-| Command                 | Action                                                   |
-| ----------------------- | -------------------------------------------------------- |
-| `/wpf-app`              | Start menu (4 entry points incl. maintenance)            |
-| `/wpf-p1-scoping`       | Scoping - 8 questions + color palette                    |
-| `/wpf-p2-featuring`     | Featuring - requirements sheet + locked sizing           |
-| `/wpf-p3-surfaces`      | Surfaces - layout proposal + customization               |
-| `/wpf-p4-architect`     | Architect - locked architecture contract (services)      |
-| `/wpf-p5-development`   | Auto-chained batch delivery                              |
-| `/wpf-add-feature`      | Add a feature to a shipped project (contract diff first) |
-| `/wpf-trace-feature`    | Trace a feature across the MVVM layers                   |
-| `/wpf-fix-issue`        | Fix a bug - decision tree, root cause                    |
-| `/wpf-refactor-code`    | Refactor under explicit validation only                  |
-| `/wpf-migrate-design`   | Convert a legacy app to the Fluent baseline              |
-| `/wpf-release`          | Cut a SemVer release from the accumulated changelog      |
-| `/wpf-run-tests`        | Executable verification (build, format, test)            |
-| `/wpf-load-project`     | Load an existing project from its specs/README           |
-| `/wpf-generate-readme`  | Generate README.md for an existing project               |
-| `/wpf-save-session`     | Save current session state                               |
-| `/wpf-show-state`       | Current project status                                   |
-| `/wpf-show-contract`    | Display locked architecture contract                     |
-| `/wpf-save-memory`      | Persist a note in Claude Code native memory              |
+| Command                | Action                                                   |
+| ---------------------- | -------------------------------------------------------- |
+| `/wpf-app`             | Start menu (4 entry points incl. maintenance)            |
+| `/wpf-p1-scoping`      | Scoping - 8 questions + color palette                    |
+| `/wpf-p2-featuring`    | Featuring - requirements sheet + locked sizing           |
+| `/wpf-p3-surfaces`     | Surfaces - layout proposal + customization               |
+| `/wpf-p4-architect`    | Architect - locked architecture contract (services)      |
+| `/wpf-p5-development`  | Auto-chained batch delivery                              |
+| `/wpf-add-feature`     | Add a feature to a shipped project (contract diff first) |
+| `/wpf-trace-feature`   | Trace a feature across the MVVM layers                   |
+| `/wpf-fix-issue`       | Fix a bug - decision tree, root cause                    |
+| `/wpf-refactor-code`   | Refactor under explicit validation only                  |
+| `/wpf-migrate-design`  | Convert a legacy app to the Fluent baseline              |
+| `/wpf-release`         | Cut a SemVer release from the accumulated changelog      |
+| `/wpf-run-tests`       | Executable verification (build, format, test)            |
+| `/wpf-load-project`    | Load an existing project from its specs/README           |
+| `/wpf-generate-readme` | Generate README.md for an existing project               |
+| `/wpf-save-session`    | Save current session state                               |
+| `/wpf-show-state`      | Current project status                                   |
+| `/wpf-show-contract`   | Display locked architecture contract                     |
+| `/wpf-save-memory`     | Persist a note in Claude Code native memory              |
 
 ---
 
@@ -166,13 +166,14 @@ All generated apps share the same visual baseline, defined in `.claude/design-sy
 
 ## Generator family
 
-| Generator | Stack | Target |
-| --------- | ----- | ------ |
-| [python-app-generator](https://github.com/TiercelinQ/python-app-generator) | Python · PySide6 · QSS | Windows desktop |
-| wpf-app-generator | .NET 10 · C# · WPF · MVVM | Windows desktop |
-| [flutter-app-generator](https://github.com/TiercelinQ/flutter-app-generator) | Flutter · Dart · Riverpod | Android |
-| [sf-node-generator](https://github.com/TiercelinQ/sf-node-generator) | Node.js · TypeScript · Salesforce CLI | Headless CLI |
-| [vscode-ext-generator](https://github.com/TiercelinQ/vscode-ext-generator) | TypeScript · esbuild · native theming | VS Code extension |
+| Generator                                                                      | Stack                                    | Target            |
+| ------------------------------------------------------------------------------ | ---------------------------------------- | ----------------- |
+| [electron-app-generator](https://github.com/TiercelinQ/electron-app-generator) | Node.js · Electron · React · TypeScript. | Windows desktop   |
+| [python-app-generator](https://github.com/TiercelinQ/python-app-generator)     | Python · PySide6 · QSS                   | Windows desktop   |
+| [wpf-app-generator](https://github.com/TiercelinQ/dotnet-wpf-app-generator)    | .NET 10 · C# · WPF · MVVM                | Windows desktop   |
+| [flutter-app-generator](https://github.com/TiercelinQ/flutter-app-generator)   | Flutter · Dart · Riverpod                | Android           |
+| [sf-node-generator](https://github.com/TiercelinQ/sf-node-generator)           | Node.js · TypeScript · Salesforce CLI    | Headless CLI      |
+| [vscode-ext-generator](https://github.com/TiercelinQ/vscode-ext-generator)     | TypeScript · esbuild · native theming    | VS Code extension |
 
 ---
 
