@@ -93,6 +93,7 @@ psi.ArgumentList.Add(userProvidedAlias);   // separate element - never spliced i
 
 - **Single instance** if the application writes data (SQLite/JSON): a named `Mutex` checked at startup, so two instances never corrupt the same file.
 - Keep .NET on a supported version; re-check the package set at generation (`@rules/config.md`).
+- `dotnet list package --vulnerable --include-transitive` (the .NET SDK dependency-vulnerability check) mentioned in the last batch instructions — same role as `npm audit` on the npm stacks and `pip-audit` on python. It needs the NuGet audit sources, so it runs after `dotnet restore`; an empty report is the expected output.
 - Debug affordances (verbose logging, developer menus, `DebugEnabled()`) are gated on the environment variable or `#if DEBUG`, never shipped enabled in Release.
 - Exception details are logged, not shown raw: a snackbar description carries a message, never a stack trace or a file path outside the user's own data folder.
 
@@ -111,4 +112,4 @@ psi.ArgumentList.Add(userProvidedAlias);   // separate element - never spliced i
 
 ## Integrity verification
 
-Detailed in `@rules/verification.md`. Key points: user data under `%APPDATA%` through `AppPaths`; no secret in code, logs, or `preferences.json`, DPAPI used where one is persisted; every service input validated and every user-supplied path resolved and confined; SQL 100% parameterized; every external process started with `UseShellExecute = false` and an `ArgumentList`, from a service; WebView2 (if present) origin-restricted with no host object; no runtime XAML load of untrusted content, no `BinaryFormatter`; single-instance mutex when the app writes data; debug affordances gated.
+Detailed in `@rules/verification.md`. Key points: user data under `%APPDATA%` through `AppPaths`; no secret in code, logs, or `preferences.json`, DPAPI used where one is persisted; every service input validated and every user-supplied path resolved and confined; SQL 100% parameterized; every external process started with `UseShellExecute = false` and an `ArgumentList`, from a service; WebView2 (if present) origin-restricted with no host object; no runtime XAML load of untrusted content, no `BinaryFormatter`; single-instance mutex when the app writes data; `dotnet list package --vulnerable` mentioned in the last batch instructions; debug affordances gated.

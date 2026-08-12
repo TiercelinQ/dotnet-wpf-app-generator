@@ -74,6 +74,7 @@ Apply `@rules/verification.md` — the executable commands (§A, blocking when t
   dotnet test                             # tests (if enabled in Phase 1)
   dotnet publish src/App.Wpf -c Release -p:PublishProfile=win-x64   # packaging - project path mandatory, app closed
   ```
+  `dotnet list package --vulnerable --include-transitive` mentioned as the dependency-vulnerability check (`@rules/security.md §7`).
 - **`.gitignore`** written at the project root — template in `@rules/config.md §.gitignore`. Keeps `bin/`, `obj/`, the anchored publish outputs (`/publish/`, `/artifacts/`), `.env`, `tasks/`, `.claude/settings.local.json` + `.claude/agent-memory/`, and the private `docs/specs/` out of the repo, while **never** ignoring `docs/release/CHANGELOG.md`, `.claude/settings.json`, the generated `CLAUDE.md`, `tests/`, or the `Directory.*.props` files.
 - **`docs/release/CHANGELOG.md`** written at the project root (create `docs/release/`), seeded per `@rules/versioning.md` — **in English**, Keep a Changelog shape: the preamble, an empty `## [Unreleased]`, and the initial `## [1.0.0] - <YYYY-MM-DD>` block with `### Added` / `- Initial release.`. The `1.0.0` matches the app version in the `.csproj` `<Version>` / `AppConfig.AppVersion`. Later releases are cut with `/wpf-release`.
 - `README.md` written automatically at the project root: objective, stack, tree, services and commands, conventions, installation.
@@ -84,7 +85,7 @@ Apply `@rules/verification.md` — the executable commands (§A, blocking when t
 
   ## Origin
 
-  Framework: wpf v1.0.0
+  Framework: dotnet-wpf v1.1.0
 
   ## Business context
 
@@ -102,7 +103,7 @@ Apply `@rules/verification.md` — the executable commands (§A, blocking when t
   - Publish a version: `/wpf-release` (turns the accumulated `[Unreleased]` changelog into a dated version and raises the version number)
   ```
 
-  `[nom-app]` = display name / app name. The version here is the **framework** version declared at the top of the framework `CLAUDE.md` (currently 1.0.0) — not the app's own version (which starts at 1.0.0 in the `.csproj` / `docs/release/CHANGELOG.md`). Replace the `Deviations` list with every deviation validated via the Phase 4/5 deviation protocol (`- [deviation] — reason: [justification]`); if none, keep `- None`.
+  `[nom-app]` = display name / app name. The version here is the **framework** version declared at the top of the framework `CLAUDE.md` (currently 1.1.0) — not the app's own version (which starts at 1.0.0 in the `.csproj` / `docs/release/CHANGELOG.md`). Replace the `Deviations` list with every deviation validated via the Phase 4/5 deviation protocol (`- [deviation] — reason: [justification]`); if none, keep `- None`.
 
 - **`.claude/settings.json`** written at the generated project root so the app stays self-enforced in later maintenance sessions:
 

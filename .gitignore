@@ -21,12 +21,14 @@ artifacts/
 *.user
 *.suo
 
-# IDE
-.vs/
-.vscode/
-.idea/
-
 # OS
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
