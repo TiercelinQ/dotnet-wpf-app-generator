@@ -4,8 +4,6 @@
 
 Part of a family of Claude Code generators. See also [electron-app-generator](https://github.com/TiercelinQ/electron-app-generator) [flutter-app-generator](https://github.com/TiercelinQ/flutter-app-generator), [python-app-generator](https://github.com/TiercelinQ/python-app-generator), [sf-node-generator](https://github.com/TiercelinQ/sf-node-generator), and [vscode-ext-generator](https://github.com/TiercelinQ/vscode-ext-generator).
 
-Derived from the Electron App Generator framework (v1.5.0).
-
 Unified edition: the full generation pipeline **plus** post-delivery maintenance skills, an explicit role per skill, persisted specs, centralized executable verification, and native memory.
 
 ---
@@ -146,7 +144,7 @@ All generated apps share the same visual baseline, defined in `.claude/design-sy
 
 ---
 
-## Rules
+## Security
 
 `.claude/rules/security.md` is non-negotiable, applied to 100% of generated apps: user data under `%APPDATA%`, secrets through DPAPI, SQL always parameterized, external processes spawned with an argument list, file paths resolved and confined, WebView2 hardened when used. `.claude/rules/threading.md` is its counterpart on the UI thread: `Dispatcher` marshalling, no `async void` outside handlers, cancellation on every long-running operation. `/wpf-fix-issue` and `/wpf-add-feature` always route through both.
 
@@ -166,14 +164,14 @@ All generated apps share the same visual baseline, defined in `.claude/design-sy
 
 ## Generator family
 
-| Generator                                                                      | Stack                                    | Target            |
-| ------------------------------------------------------------------------------ | ---------------------------------------- | ----------------- |
-| [electron-app-generator](https://github.com/TiercelinQ/electron-app-generator) | Node.js · Electron · React · TypeScript. | Windows desktop   |
-| [python-app-generator](https://github.com/TiercelinQ/python-app-generator)     | Python · PySide6 · QSS                   | Windows desktop   |
-| [wpf-app-generator](https://github.com/TiercelinQ/dotnet-wpf-app-generator)    | .NET 10 · C# · WPF · MVVM                | Windows desktop   |
-| [flutter-app-generator](https://github.com/TiercelinQ/flutter-app-generator)   | Flutter · Dart · Riverpod                | Android           |
-| [sf-node-generator](https://github.com/TiercelinQ/sf-node-generator)           | Node.js · TypeScript · Salesforce CLI    | Headless CLI      |
-| [vscode-ext-generator](https://github.com/TiercelinQ/vscode-ext-generator)     | TypeScript · esbuild · native theming    | VS Code extension |
+| Generator                                                                          | Stack                                    | Target            |
+| ---------------------------------------------------------------------------------- | ---------------------------------------- | ----------------- |
+| [electron-app-generator](https://github.com/TiercelinQ/electron-app-generator)     | Node.js · Electron · React · TypeScript. | Windows desktop   |
+| [python-app-generator](https://github.com/TiercelinQ/python-app-generator)         | Python · PySide6 · QSS                   | Windows desktop   |
+| [dotnet-wpf-app-generator](https://github.com/TiercelinQ/dotnet-wpf-app-generator) | .NET 10 · C# · WPF · MVVM                | Windows desktop   |
+| [flutter-app-generator](https://github.com/TiercelinQ/flutter-app-generator)       | Flutter · Dart · Riverpod                | Android           |
+| [sf-node-generator](https://github.com/TiercelinQ/sf-node-generator)               | Node.js · TypeScript · Salesforce CLI    | Headless CLI      |
+| [vscode-ext-generator](https://github.com/TiercelinQ/vscode-ext-generator)         | TypeScript · esbuild · native theming    | VS Code extension |
 
 ---
 
