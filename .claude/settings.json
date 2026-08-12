@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet:*)",
+      "Read",
+      "Write",
+      "Edit"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/secrets/**)",
+      "Write(**/.env)",
+      "Write(**/.env.*)",
+      "Write(**/secrets/**)",
+      "Write(**/bin/**)",
+      "Write(**/obj/**)",
+      "Write(publish/**)",
+      "Write(**/artifacts/**)"
+    ]
+  }
+}
