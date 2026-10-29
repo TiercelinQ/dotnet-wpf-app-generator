@@ -86,12 +86,14 @@ The accent is applied once at startup, before the main window is shown, and re-a
 // App.xaml.cs — principle, called from the composition root
 using Wpf.Ui.Appearance;
 
-// 1) Theme first: swaps the Fluent dictionary. updateAccent: false so step 2 owns the accent.
-ApplicationThemeManager.Apply(currentTheme, WindowBackdropType.Mica, updateAccent: false);
-
-// 2) Accent: writes the Accent* / SystemAccentColor* resources for that theme.
+// 1) Accent first: writes the Accent* / SystemAccentColor* resources for that theme.
 ApplicationAccentColorManager.Apply(AppConfig.AccentColorValue, currentTheme);
+
+// 2) Theme: swaps the Fluent dictionary. updateAccent: false so step 1 owns the accent.
+ApplicationThemeManager.Apply(currentTheme, WindowBackdropType.Mica, updateAccent: false);
 ```
+
+The order is binding: the Fluent theme dictionary captures the accent colors when it loads. With the theme applied first, the accent lags one switch behind (back in dark, accent buttons keep the light-theme dark blue with the dark-theme black text). Verified on WPF UI 4.3.0 by switching the theme twice.
 
 Signatures (WPF UI 4.3.0, `Wpf.Ui.Appearance`):
 
