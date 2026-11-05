@@ -100,8 +100,8 @@ the header **and** be given their context.
 
 ```csharp
 // Services/AppThemeService.cs - principle (Wpf.Ui.Appearance)
+ApplicationAccentColorManager.Apply(AppConfig.AccentColorValue, theme);              // writes the Accent* resources - FIRST
 ApplicationThemeManager.Apply(theme, WindowBackdropType.Mica, updateAccent: false);  // swaps the Fluent dictionary
-ApplicationAccentColorManager.Apply(AppConfig.AccentColorValue, theme);              // writes the Accent* resources
 ReplaceTokenDictionary(theme);                                                       // Tokens.Light.xaml <-> Tokens.Dark.xaml
 await _preferences.SetAsync("theme", theme.ToString());
 ```
@@ -111,6 +111,7 @@ await _preferences.SetAsync("theme", theme.ToString());
 - Initial theme: persisted preference, otherwise the Windows app theme.
 - Icons follow automatically (they bind theme brushes through `DynamicResource`) - no action.
 - The accent must be re-applied on a theme change: its light and dark variants differ.
+- **Accent before theme.** The Fluent theme dictionary captures the accent colors when it loads. Applied after the theme, the accent lags one switch behind: back in dark, accent buttons keep the light-theme dark blue with the dark-theme black text. Nothing fails at build or in tests; only switching the theme twice reveals it.
 
 ## Internal organization of `Tokens.xaml`
 
