@@ -4,6 +4,12 @@ All notable changes to this generator are documented in this file.
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 (This is the changelog of the **generator** itself, distinct from the `docs/release/CHANGELOG.md` of each generated app.)
 
+## [1.2.0] - 2026-11-05
+
+### Changed
+
+- Navigation pane without zone separators: WPF UI 4.x draws a horizontal line under the pane toggle and another above the footer items by default, out of keeping with the Fluent pane. The generated `NavigationView` now sets `IsTopSeparatorVisible="False"` and `IsFooterSeparatorVisible="False"`; zones are separated by spacing only (`layout.md` v1.1, §1 and §3).
+
 ## [1.1.0] - 2026-08-13
 
 ### Added

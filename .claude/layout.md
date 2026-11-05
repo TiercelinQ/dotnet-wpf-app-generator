@@ -1,4 +1,4 @@
-# Layout System — v1.0 (WPF)
+# Layout System — v1.1 (WPF)
 
 > Companion layout reference — not a constraint. This file provides: (1) a **proposed default
 > composition** and a **catalog of alternative composition patterns** (§12) that Claude co-designs
@@ -14,6 +14,7 @@
 | Version | Date       | Main change                                                                                      |
 | ------- | ---------- | ------------------------------------------------------------------------------------------------ |
 | v1.0    | 2026-08-11 | initial: Fluent shell (`FluentWindow` + `TitleBar` + `NavigationView`) as the default composition · snackbar feedback spec (6 positions) · dialog spec · composition pattern catalog (§12) |
+| v1.1    | 2026-11-05 | navigation pane: no zone separators - `IsTopSeparatorVisible` and `IsFooterSeparatorVisible` set to `False` (§1, §3) |
 
 Every generated application references the active version in its `README.md`.
 
@@ -43,7 +44,7 @@ Proposed XAML skeleton (`Views/MainWindow.xaml`):
 ```
 <ui:FluentWindow x:Name="AppShell">      Grid rows: TitleBarHeight, *, StatusBarHeight
   <ui:TitleBar x:Name="TitleBar" />
-  <ui:NavigationView x:Name="NavView">   pane + content frame
+  <ui:NavigationView x:Name="NavView" IsTopSeparatorVisible="False" IsFooterSeparatorVisible="False">   pane + content frame, no zone separators (§3)
   <ContentPresenter x:Name="MainContent" />
   <StatusBar x:Name="StatusBar" />
   <ui:SnackbarPresenter x:Name="SnackbarHost" />   overlaid (Panel.ZIndex)
@@ -110,6 +111,7 @@ Default values — customizable in Phase 3.
 | display mode         | `PaneDisplayMode="Left"`, switched to `LeftMinimal` (icons only) below 1000px window width |
 | background           | theme pane background                    |
 | right separator      | `BorderWidth` `ControlStrokeColorDefaultBrush` |
+| zone separators      | none - `IsTopSeparatorVisible="False"` and `IsFooterSeparatorVisible="False"` on the `NavigationView` |
 | item padding         | `Spacing2` vertical, `Spacing3` horizontal |
 
 ### Pane zones (top → bottom)
@@ -126,6 +128,8 @@ Default values — customizable in Phase 3.
 | Header | App icon `IconSizeLg` (24) + name `FontWeightSemiBold` `FontSizeBase` |
 | Body   | `NavigationViewItem` list — one per top-level view             |
 | Footer | Settings item + theme toggle                                   |
+
+Zones are separated by spacing only, never by a line. WPF UI 4.x draws a horizontal line under the pane toggle (`PART_TopSeparator`) and another above the footer items (`PART_FooterSeparator`), both visible by default: they clash with the Fluent pane, so both properties are always set to `False` on the control. Never re-add a `ui:NavigationViewItemSeparator` or a `Separator` between zones.
 
 ### Navigation items
 

@@ -85,7 +85,7 @@ Apply `@rules/verification.md` — the executable commands (§A, blocking when t
 
   ## Origin
 
-  Framework: dotnet-wpf v1.1.0
+  Framework: dotnet-wpf v1.2.0
 
   ## Business context
 
@@ -103,7 +103,7 @@ Apply `@rules/verification.md` — the executable commands (§A, blocking when t
   - Publish a version: `/wpf-release` (turns the accumulated `[Unreleased]` changelog into a dated version and raises the version number)
   ```
 
-  `[nom-app]` = display name / app name. The version here is the **framework** version declared at the top of the framework `CLAUDE.md` (currently 1.1.0) — not the app's own version (which starts at 1.0.0 in the `.csproj` / `docs/release/CHANGELOG.md`). Replace the `Deviations` list with every deviation validated via the Phase 4/5 deviation protocol (`- [deviation] — reason: [justification]`); if none, keep `- None`.
+  `[nom-app]` = display name / app name. The version here is the **framework** version declared at the top of the framework `CLAUDE.md` (currently 1.2.0) — not the app's own version (which starts at 1.0.0 in the `.csproj` / `docs/release/CHANGELOG.md`). Replace the `Deviations` list with every deviation validated via the Phase 4/5 deviation protocol (`- [deviation] — reason: [justification]`); if none, keep `- None`.
 
 - **`.claude/settings.json`** written at the generated project root so the app stays self-enforced in later maintenance sessions:
 

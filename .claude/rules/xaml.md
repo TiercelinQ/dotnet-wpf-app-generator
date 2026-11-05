@@ -138,7 +138,7 @@ await _preferences.SetAsync("theme", theme.ToString());
 ```xml
 <!-- ============================================================
      Styles.xaml - [APP_NAME] v[VERSION]
-     Reference: design-system.md v1.0 (WPF) - layout.md v1.0
+     Reference: design-system.md v1.0 (WPF) - layout.md v1.1
      ============================================================ -->
 
 <!-- SHELL: window, title bar, navigation pane, content host, status bar -->
