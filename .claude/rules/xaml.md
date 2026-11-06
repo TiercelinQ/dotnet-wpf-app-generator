@@ -76,6 +76,22 @@ It looks like "reproduce the inherited context"; it binds the property to its ow
 is self-referential, and it replaces inheritance with a local value that may never resolve.
 Omitting the attribute is what makes inheritance work.
 
+### A `NavigationView` page must set `ScrollViewer.CanContentScroll="False"`
+
+By default the WPF UI `NavigationViewContentPresenter` wraps every page in its own
+`DynamicScrollViewer` (verified on WPF UI 4.3.0: a plain `Page` gives
+`IsDynamicScrollViewerEnabled=True`). The page is then measured with an infinite height:
+
+- a page with its own `ScrollViewer` never scrolls, and the wheel is swallowed (a
+  `ScrollViewer` always marks the wheel event `Handled`);
+- a master-detail page (tree + detail) scrolls as one block, and the inner scrolling zones
+  (`TreeView`, `RichTextBox`, a height-capped band) never activate.
+
+The common page style carries `<Setter Property="ScrollViewer.CanContentScroll" Value="False" />`
+from generation, for every page; the presenter reads it (local value or style setter) and drops
+its wrapper. `True` does the opposite. Check: `new NavigationViewContentPresenter().Navigate(page)`,
+then `IsDynamicScrollViewerEnabled` must read `False`. Hit on two delivered applications.
+
 ### `ui:TitleBar.Header` receives no `DataContext`
 
 Content placed in the header is realized inside the control's template. Neither inheritance nor
@@ -172,7 +188,8 @@ In Phase 1 the project picks a **palette** (named or custom): the accent is mand
 - **Do not** target a plain CLR property with a `Setter`.
 - **Do not** ask for `BasedOn` on a type that has no implicit style.
 - **Do not** rely on inheritance for `TitleBar.Header` - assign its `DataContext` explicitly.
+- **Do not** leave a `NavigationView` page without `ScrollViewer.CanContentScroll="False"` in its style - WPF UI wraps it in its own scroll host and the page's scrolling breaks.
 
 ## Integrity verification
 
-Detailed in `@rules/verification.md`. Key points: zero hardcoded visual value in XAML/C# (the commented splash background excepted); `Styles.xaml` consumes only resource keys; no theme condition outside the dictionary swap; dictionary merge order correct in `App.xaml`; themed brushes referenced with `DynamicResource`; no shadow effect; `Panel.ZIndex` read from the `Z*` tokens; view code-behind free of business logic; no `Setter` on a non-dependency property; `BasedOn` present on every templated control and absent where no implicit style exists; no `DataContext="{Binding}"`; `TitleBar.Header` given its context explicitly.
+Detailed in `@rules/verification.md`. Key points: zero hardcoded visual value in XAML/C# (the commented splash background excepted); `Styles.xaml` consumes only resource keys; no theme condition outside the dictionary swap; dictionary merge order correct in `App.xaml`; themed brushes referenced with `DynamicResource`; no shadow effect; `Panel.ZIndex` read from the `Z*` tokens; view code-behind free of business logic; no `Setter` on a non-dependency property; `BasedOn` present on every templated control and absent where no implicit style exists; no `DataContext="{Binding}"`; `TitleBar.Header` given its context explicitly; the common page style sets `ScrollViewer.CanContentScroll` to `False`.
