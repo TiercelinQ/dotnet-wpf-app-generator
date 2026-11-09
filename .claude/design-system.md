@@ -339,7 +339,7 @@ Font: **Segoe Fluent Icons**, shipped with Windows 11 (Windows 10 falls back to 
 1. **Zero hardcoded visual value in XAML or C#.** Every color, size, font is a resource key from `Themes/Tokens.xaml`. Zero literal `Background="#RRGGBB"`, zero literal `Margin="12"` on a styled element.
 2. **Every styled control carries a `Style`** referencing a named resource. `x:Name` is reserved for the shell anchors the ViewModel or the code-behind genuinely needs.
 3. **Dark mode is a dictionary swap** performed by the theme manager — never a per-element `DynamicResource` condition and never a theme test in C#.
-4. **`Styles.xaml` contains no literal value** of color, size, or duration — only `{StaticResource}` / `{DynamicResource}`. Every style carries a comment naming the source token.
+4. **`Styles.xaml` contains no literal value** of color, size, or duration — only `{StaticResource}` / `{DynamicResource}`. No comment inside a resource dictionary beyond the file banner.
 5. **The navigation selection indicator is the control's own** (§8): never reimplemented, never animated by hand.
 
 ```xml

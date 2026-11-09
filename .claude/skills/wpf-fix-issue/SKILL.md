@@ -25,7 +25,7 @@ Read the actual error before touching code. Classify, then act in this order:
 
 ### 1. Build / analyzer error (`dotnet build`, `dotnet format`)
 - Read the exact message + `file(line,col)` + the rule id (`CSxxxx`, `CAxxxx`, `IDExxxx`). Most are precise (type mismatch, nullable warning, unused symbol, missing using).
-- Fix the cause. **Do not** add `#pragma warning disable` or a `!` null-forgiving operator to silence it unless the analyzer is genuinely wrong and the reason is written in a comment on the line above.
+- Fix the cause. **Do not** add `#pragma warning disable` or a `!` null-forgiving operator to silence it unless the analyzer is genuinely wrong and the reason is written in the XML `<remarks>` of the member. Rebuild without the directive first: a diagnostic that does not fire (CA1031 under `AnalysisMode=Recommended`) needs no suppression, and CA2016 is fixed by passing `CancellationToken.None` explicitly.
 - `NU1008` → a `Version` was written on a `PackageReference` while Central Package Management is on; move it to `Directory.Packages.props` (`@rules/config.md`).
 - XAML parse error at build (`MC3000`, `MC3074`) → an unknown element or a missing namespace declaration; check the `xmlns` prefixes and the resource dictionary merge order (`@rules/xaml.md`).
 

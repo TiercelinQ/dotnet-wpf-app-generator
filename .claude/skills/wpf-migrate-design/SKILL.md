@@ -53,7 +53,7 @@ Present the plan (in the user's language): files touched, the icon mapping table
 5. **Theme switching** — replace any hand-rolled theme test or per-element `DynamicResource` juggling with the theme manager swap in `Services/AppThemeService.cs`, re-applying the accent for the new theme (`@rules/xaml.md`).
 6. **Icons** — replace each legacy icon with its `ui:SymbolIcon` equivalent (table below), size from the `IconSize*` tokens, `Foreground` from the matching `Icon*Brush`. Remove the retired icon assets and their build entries.
 7. **Feedback** — replace every business `MessageBox.Show` with the snackbar service, and every confirmation with the styled dialog (`layout.md` §5 and §8, `@rules/errors.md`). The ViewModel keeps the same decision points; only the surface changes.
-8. **Splash** (if the app has one) — `Themes/Splash.xaml` follows the new dictionaries automatically; update the composition-root background literal to the new application background, keeping its sourced-from comment (`@rules/splash.md`).
+8. **Splash** (if the app has one) — `Themes/Splash.xaml` follows the new dictionaries automatically; update the composition-root background literal to the new application background, keeping its sourced-from justification in the member's XML remarks (`@rules/splash.md`).
 9. **Docs** — app `README.md`: design system reference → the current version (+ layout version), stack line Icons → Segoe Fluent Icons, UI line → WPF UI; app `CLAUDE.md`: dated migration note under `## Deviations from the framework` (or a `## Design system migration` block); `docs/specs/04-architect.md`: refresh the tokens → resources table, append a dated migration note (this validated run is the contract amendment).
 10. **Changelog** — append a `### Changed` entry under `## [Unreleased]` in `docs/release/CHANGELOG.md` (`@rules/versioning.md`): `- Migrated UI to the Fluent design system baseline.` (English, no version bump; migrate-design infers MINOR at `/wpf-release`). If the file is absent (legacy app never initialized), skip silently and suggest `/wpf-load-project`.
 
@@ -77,7 +77,7 @@ Every symbol above is verified present in `SymbolRegular` for WPF UI 4.3.0. Any 
 ## Step 5 — Verification and summary
 
 - Run `@rules/verification.md §A` in full (`dotnet restore` → `build` → `format --verify-no-changes`; `dotnet test` if the project has tests) — a failure is blocking.
-- Residual grep in `src/`: no `DropShadowEffect`, no `MessageBox.Show` for a business message, no hardcoded `#RRGGBB` outside the token dictionaries (the commented splash background excepted), no reference to the retired icon mechanism or package.
+- Residual grep in `src/`: no `DropShadowEffect`, no `MessageBox.Show` for a business message, no hardcoded `#RRGGBB` outside the token dictionaries (the splash background, justified in its XML remarks, excepted), no reference to the retired icon mechanism or package.
 - Manual visual pass by the user: state that surfaces, corner radii, hover, icons, and the feedback surface are the only intended visible changes — every feature must behave identically. Report the conversion summary (files, icon mappings, `MessageBox` replacements, AA results).
 - After an anomaly: cleanup protocol (`@rules/mvvm.md`), then offer `/wpf-save-memory`.
 

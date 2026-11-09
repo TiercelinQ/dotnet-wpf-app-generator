@@ -29,9 +29,9 @@ Merged once in `App.xaml`, in this order: the WPF UI Fluent dictionaries, then `
 
 ## Absolute rules
 
-1. **Zero hardcoded visual value in XAML or C#** - zero literal color, size, margin, or duration on a styled element. Two tolerated exceptions: values computed at runtime that cannot be a resource (for example a position following the pointer), justified with a comment; and the splash window `Background` set in code before the dictionaries load (`@rules/splash.md`), commented as sourced from the application background brush.
+1. **Zero hardcoded visual value in XAML or C#** - zero literal color, size, margin, or duration on a styled element. Two tolerated exceptions: values computed at runtime that cannot be a resource (for example a position following the pointer), justified in the XML `<remarks>` of the member that computes them; and the splash window `Background` set in code before the dictionaries load (`@rules/splash.md`), justified in the XML `<remarks>` of the member that sets it as sourced from the application background brush.
 2. **`Styles.xaml` contains no literal value** - only `{StaticResource}` / `{DynamicResource}`. Any new value goes through a token in `Tokens.xaml` first.
-3. **Every style carries a comment** naming the source token(s) or Fluent brush(es).
+3. **No comment inside a resource dictionary** beyond the file banner. The source tokens and Fluent brushes of a style are read from its `Setter`s, never restated in a comment (per-block or per-style).
 4. **Dark mode is a dictionary swap**: the theme manager replaces the Fluent theme dictionary and the project token dictionary together. `Styles.xaml` contains **no** theme condition, no trigger on the theme, no `if (isDark)` in C#.
 5. **Fluent owns depth**: surfaces come from the theme brushes (`CardBackgroundFillColorDefaultBrush`, `LayerFillColorDefaultBrush`), corner radii from `CornerRadiusSm` / `CornerRadiusMd`. Zero hand-written `DropShadowEffect` - it is forbidden, both for the look and for the render cost.
 6. **Naming conventions**: style keys in `PascalCase` suffixed by the control role (`PrimaryButtonStyle`, `DataGridHeaderStyle`); token keys in `PascalCase` (`Spacing4`, `CornerRadiusMd`, `IconSizeLg`). `x:Name` only where the code-behind or a binding genuinely needs the element.
@@ -108,7 +108,9 @@ the header **and** be given their context.
 1. A **visible witness** settles the context question: bind a `TextBlock` to a simple property
    (`Text="{Binding ZoomPercent}"`). Empty means no `DataContext`.
 2. `InvokePattern.Invoke()` through UI Automation tests the **command**; a synthetic mouse click
-   tests the **hit-testing**. They fail for different reasons — measure them separately.
+   tests the **hit-testing**. They fail for different reasons — measure them separately. The
+   items of a WPF UI `NavigationView` are not exposed to UI Automation, so a page change is
+   driven by its keyboard shortcut (`@rules/verification.md` §A-bis).
 3. On an inactive window the first click only activates it and is swallowed. Always send two
    before concluding.
 
@@ -137,16 +139,10 @@ await _preferences.SetAsync("theme", theme.ToString());
      Reference: design-system.md v1.0 (WPF) - project palette
      ============================================================ -->
 <ResourceDictionary>
-  <!-- TYPOGRAPHY (family, sizes, weights, line heights) -->
-  <!-- SPACING (Thickness, uniform + directional variants) -->
-  <!-- FIXED SIZES (title bar, status bar, nav pane, drawer, content, icons) -->
-  <!-- SHAPE (corner radii, border widths) -->
-  <!-- OPACITY (disabled, overlay) -->
-  <!-- TRANSITIONS (easing + durations) -->
-  <!-- Z-ORDER (layering scale) -->
-  <!-- BRUSH ALIASES (Icon*Brush, Chart*Brush, Selection*) -> Fluent brushes -->
 </ResourceDictionary>
 ```
+
+The file carries the banner above and nothing else in comments. Entries follow this order, with no section comment: typography (family, sizes, weights, line heights), spacing (uniform and directional `Thickness`), fixed sizes (title bar, status bar, nav pane, drawer, content, icons), shape (corner radii, border widths), opacity (disabled, overlay), transitions (easing and durations), z-order (layering scale), brush aliases (`Icon*Brush`, `Chart*Brush`, `Selection*`) over the Fluent brushes.
 
 `Tokens.Light.xaml` / `Tokens.Dark.xaml` hold **only** the palette role overrides (`design-system.md` §2): application background, layer background, primary text, control stroke. Everything not overridden stays Fluent.
 
@@ -157,17 +153,9 @@ await _preferences.SetAsync("theme", theme.ToString());
      Styles.xaml - [APP_NAME] v[VERSION]
      Reference: design-system.md v1.0 (WPF) - layout.md v1.1
      ============================================================ -->
-
-<!-- SHELL: window, title bar, navigation pane, content host, status bar -->
-<!-- BUTTONS: PrimaryButtonStyle, SecondaryButtonStyle, DangerButtonStyle, GhostButtonStyle -->
-<!-- INPUTS: TextBox, ComboBox, CheckBox, DatePicker - error state included -->
-<!-- DATA: DataGrid (header, row, cell), TreeView, ListView -->
-<!-- FEEDBACK: snackbar presenter anchors, dialog host, progress -->
-<!-- OVERLAYS: drawer, dialog overlay -->
-<!-- TEXT: section title, subtitle, status bar text -->
 ```
 
-Each block opens with a comment naming the tokens it consumes. Styles that only set a Fluent property to a token value are still declared here, so no view sets it inline.
+The file carries the banner above and nothing else in comments. Styles are grouped in this order, with no block or per-style comment: shell (window, title bar, navigation pane, content host, status bar), buttons (`PrimaryButtonStyle`, `SecondaryButtonStyle`, `DangerButtonStyle`, `GhostButtonStyle`), inputs (TextBox, ComboBox, CheckBox, DatePicker, error state included), data (DataGrid header, row and cell, TreeView, ListView), feedback (snackbar presenter anchors, dialog host, progress), overlays (drawer, dialog overlay), text (section title, subtitle, status bar text). Styles that only set a Fluent property to a token value are still declared here, so no view sets it inline.
 
 ## Per-project palette
 
@@ -192,4 +180,4 @@ In Phase 1 the project picks a **palette** (named or custom): the accent is mand
 
 ## Integrity verification
 
-Detailed in `@rules/verification.md`. Key points: zero hardcoded visual value in XAML/C# (the commented splash background excepted); `Styles.xaml` consumes only resource keys; no theme condition outside the dictionary swap; dictionary merge order correct in `App.xaml`; themed brushes referenced with `DynamicResource`; no shadow effect; `Panel.ZIndex` read from the `Z*` tokens; view code-behind free of business logic; no `Setter` on a non-dependency property; `BasedOn` present on every templated control and absent where no implicit style exists; no `DataContext="{Binding}"`; `TitleBar.Header` given its context explicitly; the common page style sets `ScrollViewer.CanContentScroll` to `False`.
+Detailed in `@rules/verification.md`. Key points: zero hardcoded visual value in XAML/C# (the splash background, justified in its XML remarks, excepted); no comment in a resource dictionary beyond the banner; `Styles.xaml` consumes only resource keys; no theme condition outside the dictionary swap; dictionary merge order correct in `App.xaml`; themed brushes referenced with `DynamicResource`; no shadow effect; `Panel.ZIndex` read from the `Z*` tokens; view code-behind free of business logic; no `Setter` on a non-dependency property; `BasedOn` present on every templated control and absent where no implicit style exists; no `DataContext="{Binding}"`; `TitleBar.Header` given its context explicitly; the common page style sets `ScrollViewer.CanContentScroll` to `False`.

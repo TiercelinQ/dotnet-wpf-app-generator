@@ -48,7 +48,8 @@ Test project: `tests/App.Wpf.Tests/App.Wpf.Tests.csproj`, referencing the applic
 - Test names: explicit French behavior - always French, independent of the user's interface language - for example `Rejette_un_payload_sans_email`.
 - No `Assert.True(true)`, no empty test, no `[Fact(Skip = ...)]` left behind.
 - No real network, no file on disk outside a temp folder the test deletes: substitute the service interfaces, and use an in-memory SQLite connection (`DataSource=:memory:`) for data tests.
-- No `Thread.Sleep` - `await` the async API under test, or use a controllable time abstraction.
+- No `Thread.Sleep` - `await` the async API under test, or use a controllable time abstraction. A test that waits for a timer to be scheduled awaits a signal raised by that abstraction, never a polling loop with `Task.Delay`.
+- No comment in a test file: no section separator, no explanation line. The test name says what the test checks.
 - Async tests return `Task`, never `async void`.
 - One assertion subject per test. Several `Assert` calls on the same subject are fine.
 

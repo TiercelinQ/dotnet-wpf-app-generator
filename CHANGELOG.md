@@ -4,6 +4,15 @@ All notable changes to this generator are documented in this file.
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 (This is the changelog of the **generator** itself, distinct from the `docs/release/CHANGELOG.md` of each generated app.)
 
+## [1.3.0] - 2026-11-09
+
+### Changed
+
+- No comment in the delivered code beyond documentation: only the XML documentation of types and members, member headers and file banners remain. Nothing inside a method body, a resource dictionary (the banner excepted) or a test file. A justification a rule requires (marshalling source, `#pragma`, splash background literal, `user_version` interpolation, empty `catch`) goes in the XML `<remarks>` of the member. New absolute rule in `CLAUDE.md`, new static check `verification.md §B.4a`; `xaml.md` rule 3 and the `Tokens.xaml` / `Styles.xaml` templates, `design-system.md §11`, `threading.md`, `splash.md`, `db.md`, `tests.md`, `wpf-fix-issue` and `wpf-migrate-design` aligned.
+- Splash: `verification.md`, `wpf-p4-architect` and `wpf-p5-development` no longer say the shell is "hidden until `Loaded`", which `splash.md` forbids (invisible window, process that never exits). The shell is shown once at the end of the startup sequence.
+- Acceptance run (`verification.md §A-bis`, `xaml.md`): the items of a WPF UI `NavigationView` are not exposed to UI Automation and `SendKeys` is silently ignored. A page is reached by its shortcut with real key events (`keybd_event` Alt + digit after `SetForegroundWindow`), and the change is proved by a control the automation exposes; an unchanged element count is never a conclusion.
+- Analyzers (`config.md`, `verification.md`, `wpf-fix-issue`): with `AnalysisMode=Recommended`, CA1031 is inactive (a `#pragma` for it suppresses nothing) and CA2016 is active (`Wait(0, CancellationToken.None)`). A directive is written only after a rebuild without it proves the diagnostic fires.
+
 ## [1.2.0] - 2026-11-05
 
 ### Changed

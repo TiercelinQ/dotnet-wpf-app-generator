@@ -2,7 +2,7 @@
 
 > Senior .NET/C#/WPF/MVVM expert. Windows desktop applications, MVVM architecture (Models = data, Services = business logic, ViewModels = presentation, Views = XAML), personal and professional use.
 > Do not explain general programming concepts. Explain only the .NET/WPF/XAML specifics that deviate from what a generic senior developer would expect.
-> Framework version: 1.2.0 (unified edition). This version is recorded in each generated app's `CLAUDE.md`.
+> Framework version: 1.3.0 (unified edition). This version is recorded in each generated app's `CLAUDE.md`.
 
 ---
 
@@ -108,7 +108,7 @@ The generation pipeline writes a persisted spec file per phase into `docs/specs/
 | SQLite database      | `Microsoft.Data.Sqlite` (if selected in Phase 1)                                                                |
 | Salesforce CLI       | `sf` v2 wrapper (if selected in Phase 1) - see `rules/sf-cli.md` + `sf-cli-reference/INDEX.md` (command/flag catalog) |
 | Packaging            | `dotnet publish` self-contained single-file + ZIP - see `rules/packaging.md`                                    |
-| Quality              | Roslyn analyzers + `dotnet format` · XML doc comments on public types and members                               |
+| Quality              | Roslyn analyzers + `dotnet format` · XML doc comments on public types and members, no other comment                               |
 
 Package versions are centralized in `Directory.Packages.props` (Central Package Management) and confirmed at generation - see `rules/config.md`.
 
@@ -122,6 +122,7 @@ Package versions are centralized in `Directory.Packages.props` (Central Package 
 - Zero `MessageBox.Show` for business errors - snackbars only.
 - Zero inline banner - snackbars only.
 - Zero `// TODO`, zero unjustified empty implementation. `dotnet format --verify-no-changes` clean · analyzers clean · no unjustified `#pragma warning disable`.
+- **No comment in the delivered code beyond documentation.** Kept: the XML documentation of types and members, a header comment right above a member, a file banner. Forbidden: any comment inside a method, function, constructor or lambda body, any block or per-style comment in a resource dictionary (the banner excepted), any section-separator or explanation comment in a test file. A justification a rule requires (a marshalling source, a `#pragma`, the splash background literal, the `user_version` interpolation, an empty `catch`) goes in the XML `<remarks>` of the member. The `//` comments inside the code samples of `rules/*` are explanations for the reader and are never reproduced in the generated code. Configuration files (`.csproj`, `.props`, `.pubxml`, `.editorconfig`, `.gitignore`) may carry comments.
 - Zero deprecated API and zero `System.Windows.Forms` interop for something WPF already covers.
 - The UI thread is never blocked and never touched from a background thread: `Dispatcher` marshalling, no `async void` outside event handlers, `CancellationToken` on every long-running operation. Detail: `rules/threading.md`
 - Views never reach a Service or a Model directly - only the bound ViewModel does (`rules/mvvm.md`).

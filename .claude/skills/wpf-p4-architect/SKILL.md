@@ -46,7 +46,7 @@ Present (in the user's language, as plain Markdown — never inside a code block
 
    The example rows in both tables use the **default composition** (NavigationView pane). Consuming views and style targets always follow **the retained composition from `docs/specs/03-surfaces.md`** — another pattern (`layout.md` §12) replaces them with its own shell controls and anchors.
 
-   **If the splash screen is on (Phase 3)**: add the splash files to the tree (`src/App.Wpf/Views/SplashWindow.xaml`, `src/App.Wpf/Themes/Splash.xaml`), note the absence of `StartupUri` in `App.xaml`, the `SplashMinDurationMs` constant in `AppConfig`, and the splash orchestration in `App.xaml.cs` (shell hidden until `Loaded`). The icon source (Phase 1 icon reused, path provided in Phase 3, or text-only) is part of the contract. See @rules/splash.md.
+   **If the splash screen is on (Phase 3)**: add the splash files to the tree (`src/App.Wpf/Views/SplashWindow.xaml`, `src/App.Wpf/Themes/Splash.xaml`), note the absence of `StartupUri` in `App.xaml`, the `SplashMinDurationMs` constant in `AppConfig`, and the splash orchestration in `App.xaml.cs` (shell shown once at the end of the startup sequence, never created hidden). The icon source (Phase 1 icon reused, path provided in Phase 3, or text-only) is part of the contract. See @rules/splash.md.
 
    **If packaging is on (Phase 1)**: add the publish profile to the tree and record the runtime identifier and the single-file settings (`@rules/packaging.md`).
 

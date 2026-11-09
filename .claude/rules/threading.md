@@ -73,7 +73,7 @@ await Application.Current.Dispatcher.InvokeAsync(() => Items.Add(x)); // asynchr
 ```
 
 - Prefer restructuring so the marshalling is not needed: return the value from the awaited call and assign it on the UI thread.
-- `Dispatcher.Invoke` from a ViewModel is tolerated for callback-based sources only, and each call carries a comment naming the background source.
+- `Dispatcher.Invoke` from a ViewModel is tolerated for callback-based sources only, and the XML `<remarks>` of the member that marshals names the background source (a handler subscribed to a service event, a timer, a process callback).
 - `BindingOperations.EnableCollectionSynchronization` is an alternative for a collection genuinely mutated from several threads. It is a Phase 4 contract decision, not an ad-hoc fix.
 
 ## Cancellation
@@ -103,4 +103,4 @@ await Application.Current.Dispatcher.InvokeAsync(() => Items.Add(x)); // asynchr
 
 ## Integrity verification
 
-Detailed in `@rules/verification.md`. Key points: no `async void` outside a guarded event handler; no `.Result` / `.Wait()` / `GetAwaiter().GetResult()` in the delivered sources; `ConfigureAwait(false)` present in services and absent in ViewModels; every long-running service method cancellable and its token honored; every `Dispatcher.Invoke` commented with its background source; no `Thread.Sleep`; collections bound to the UI mutated on the UI thread only.
+Detailed in `@rules/verification.md`. Key points: no `async void` outside a guarded event handler; no `.Result` / `.Wait()` / `GetAwaiter().GetResult()` in the delivered sources; `ConfigureAwait(false)` present in services and absent in ViewModels; every long-running service method cancellable and its token honored; every marshalling to the UI thread documented with its background source in the XML `<remarks>` of its member; no `Thread.Sleep`; collections bound to the UI mutated on the UI thread only.

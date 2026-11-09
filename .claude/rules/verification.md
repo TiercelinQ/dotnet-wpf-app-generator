@@ -19,7 +19,7 @@ dotnet publish src/App.Wpf -c Release -p:PublishProfile=win-x64   # packaging on
 
 Rules:
 - A non-zero exit or any reported error is a failure -> fix the root cause, do not silence the rule. Re-run until clean.
-- **A warning is an error** (`TreatWarningsAsErrors`, `@rules/config.md`). Never suppress one with `#pragma warning disable` without a written justification on the line above, and never suppress it to make the build pass.
+- **A warning is an error** (`TreatWarningsAsErrors`, `@rules/config.md`). Never suppress one with `#pragma warning disable` without a written justification in the XML `<remarks>` of the member, and never suppress it to make the build pass. Before writing a directive, rebuild without it: a diagnostic that does not fire needs no suppression (with `AnalysisMode=Recommended`, CA1031 is inactive while CA2016 is active - `@rules/config.md`).
 - **`NU1008`** on build means a `Version` attribute was written on a `PackageReference` while Central Package Management is on. Move the version to `Directory.Packages.props`.
 - **`dotnet format` fails on a file it did not write**: run it once to apply, then re-run with `--verify-no-changes` to confirm. Never commit a formatting-only diff mixed into a feature change.
 - **`dotnet test` with no test project** is a no-op, not a success: if tests were enabled in Phase 1, a missing project is a defect.
@@ -50,7 +50,12 @@ Run it before declaring anything delivered:
    resolves to null leaves the button enabled and silent — nothing else reveals it. Automate it:
    `InvokePattern.Invoke()` through UI Automation for the command, a synthetic mouse click for
    the hit-testing, and check an observable effect (a status bar value, a pane that folds).
-   Send **two** clicks: on an inactive window the first only activates it.
+   Send **two** clicks: on an inactive window the first only activates it. The items of a WPF UI
+   `NavigationView` are not exposed to UI Automation, and `SendKeys` is silently ignored: reach a
+   page by its shortcut with real key events (`keybd_event` Alt + digit after a `SetForegroundWindow`
+   on the main window, checking `GetForegroundWindow`), and prove the page changed by a control the
+   automation does expose (a `UserControl` such as the filter or pagination bar appears by its
+   class name). Never conclude from an unchanged element count: it proves the navigation did not run.
 5. **Look at the result in both themes**, and compare a rendered asset against a reference at
    the *same scale* — a comparison across scales proves nothing.
 6. **Close the window and confirm the process exits.** A survivor signals a window still open,
@@ -70,6 +75,7 @@ Report what was checked and what could not be. Never write "verified" over a sco
 2. Usings: all used, none missing; dependency direction respected (`Views -> ViewModels -> Services -> Models`; `Models` referenced by all).
 3. MVVM responsibilities respected (zero logic in a view's code-behind, zero WPF type in a service or a model). See `@rules/mvvm.md` anti-patterns.
 4. Zero `// TODO`, zero unjustified empty implementation, zero unjustified `#pragma warning disable`, zero `!` null-forgiving operator without a reason.
+4a. Zero comment inside a method or function body (search the delivered sources for `//` that is not `///`), zero comment in a resource dictionary beyond the file banner (search for `<!--`), zero section-separator comment in a test file. Only the XML documentation of types and members, member headers and file banners remain; a justification a rule requires sits in the member's XML `<remarks>`.
 4b. The three global handlers present in `App.xaml.cs` (`DispatcherUnhandledException`, `AppDomain.UnhandledException`, `TaskScheduler.UnobservedTaskException`) - see `@rules/errors.md`.
 5. .NET 10 · C# 14 · nullable enabled · no deprecated API.
 6. `design-system.md` compliance + the composition validated in `docs/specs/03-surfaces.md`/`04-architect.md` + the retained `layout.md` specs (snackbars, dialogs) - zero hardcoded visual value in XAML or C# (sanctioned exception: the splash background literal, `@rules/splash.md` - do not flag it). See `@rules/xaml.md` anti-patterns.
@@ -90,10 +96,10 @@ Report what was checked and what could not be. Never write "verified" over a sco
 ### Per-domain (conditional - see the matching rule for detail)
 - **logging** (`@rules/logging.md`): Serilog configured once on the host builder; `ILogger<T>` injected elsewhere; file sink under `%APPDATA%`, rolling and size-capped; no `Console.WriteLine` in the delivered sources; every non-rethrowing `catch` calls `LogError`; structured templates; flush on exit.
 - **DB** (`@rules/db.md`): `DatabaseService` single access point; `MigrationRunner` called from the composition root before the main window; `AppConfig.DbSchemaVersion` == `max(Migrations)`; no DB access outside `Services/Data/`; SQL parameterized; connections and commands disposed.
-- **threading** (`@rules/threading.md`): the checks of §B.8, plus every `Dispatcher.Invoke` commented with its background source and no `Thread.Sleep`.
+- **threading** (`@rules/threading.md`): the checks of §B.8, plus every marshalling to the UI thread documented, in the XML `<remarks>` of its member, with its background source, and no `Thread.Sleep`.
 - **packaging** (`@rules/packaging.md`): if enabled, publish profile present, `PublishTrimmed` false, `ApplicationIcon` set with a 256 px layer, version properties consistent, `dotnet publish` producing a runnable single file, README documenting the SmartScreen warning.
 - **sf-cli** (`@rules/sf-cli.md`): if enabled, all `sf` calls through `Services/SfCliService.cs` with `UseShellExecute = false` and an `ArgumentList` (no command string, no ViewModel spawn); `sf` resolved from `PATH` or the `SfPath` preference with the `.cmd` shim handled; both output streams read concurrently with the wait; missing binary maps to a clear snackbar; no token stored or logged; Org Manager commands validate input and refresh after a mutation.
-- **splash** (`@rules/splash.md`): if enabled, `SplashWindow.xaml` + `Themes/Splash.xaml` present; `SplashMinDurationMs` in `AppConfig`; created and dismissed in `App.xaml.cs` with the shell hidden until `Loaded`; `StartupUri` absent; theme applied before the splash; no `Thread.Sleep`; icon resolved or text-only fallback.
+- **splash** (`@rules/splash.md`): if enabled, `SplashWindow.xaml` + `Themes/Splash.xaml` present; `SplashMinDurationMs` in `AppConfig`; created and dismissed in `App.xaml.cs`, the shell shown once at the end of the startup sequence and never created hidden or revealed from `Loaded`; `StartupUri` absent; theme applied before the splash; no `Thread.Sleep`; icon resolved or text-only fallback.
 - **tests** (`@rules/tests.md`): if enabled, each source module has a matching test (Phase 4 mapping); `dotnet test` exits 0; test packages present; no skipped or empty test.
 - **versioning** (`@rules/versioning.md`): `docs/release/CHANGELOG.md` present and English; top released version == `.csproj` `<Version>` == `AppConfig.AppVersion`; maintenance changes recorded under `[Unreleased]` in the right category; after `/wpf-release`, `[Unreleased]` reset empty and the cut block carries the right version + date.
 
