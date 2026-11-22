@@ -86,7 +86,7 @@ Apply `@rules/verification.md` — the executable commands (§A, blocking when t
 
   ## Origin
 
-  Framework: dotnet-wpf v1.2.0
+  Framework: dotnet-wpf v2.0.0
 
   ## Business context
 
