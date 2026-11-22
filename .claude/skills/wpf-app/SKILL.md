@@ -2,6 +2,7 @@
 name: wpf-app
 description: Start menu of the WPF app generator — new app, resume an existing session, load a delivered project, or maintain one. Invoke at the beginning of a conversation or at any time via /wpf-app.
 model: haiku
+effort: low
 ---
 
 # /wpf-app — Start / resume / maintenance menu

@@ -2,6 +2,7 @@
 name: wpf-p3-surfaces
 description: Phase 3 of the WPF app generation cycle — guided UI co-design based on the layout.md pattern catalog (navigation, content organization, forms), tailored proposal, grouped detail questions, validated synthesis written to the layout spec before Phase 4.
 model: sonnet
+effort: medium
 ---
 
 # /wpf-p3-surfaces — Layout co-design

@@ -2,6 +2,7 @@
 name: wpf-generate-readme
 description: Analyze the specs and source of an existing WPF project and generate its README.md (objective, features, stack, tree, services and commands, conventions, installation). Invoke from the target project root.
 model: sonnet
+effort: low
 ---
 
 # /wpf-generate-readme — Generate the README.md

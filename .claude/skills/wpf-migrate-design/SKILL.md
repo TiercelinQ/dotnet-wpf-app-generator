@@ -2,6 +2,7 @@
 name: wpf-migrate-design
 description: Convert a WPF app built before the Fluent baseline to the current design system — WPF UI theme, resource-key tokens, Segoe Fluent Icons, snackbar feedback, dictionary-swap dark mode — without changing any behavior. Proposed by /wpf-load-project when a legacy app is detected; runs only on explicit validation.
 model: sonnet
+effort: medium
 ---
 
 # /wpf-migrate-design — Convert a legacy app to the Fluent baseline

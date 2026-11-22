@@ -1,7 +1,8 @@
 ---
 name: wpf-p2-featuring
 description: Phase 2 of the WPF app generation cycle — feature elicitation, MoSCoW prioritization, v1.0 scope, calibration confirmed here, blocking validation before Phase 3, written to the analysis spec.
-model: sonnet
+model: opus
+effort: medium
 ---
 
 # /wpf-p2-featuring — Requirements analysis

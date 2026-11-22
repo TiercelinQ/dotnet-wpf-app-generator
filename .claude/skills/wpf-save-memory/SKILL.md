@@ -2,6 +2,7 @@
 name: wpf-save-memory
 description: Memorize an error not to repeat, a structural decision, or a generation preference — persisted into Claude Code native memory (project memory folder + MEMORY.md index), available in later sessions.
 model: haiku
+effort: low
 ---
 
 # /wpf-save-memory — Memorization
