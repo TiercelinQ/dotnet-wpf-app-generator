@@ -125,7 +125,7 @@ If the user reports an anomaly after delivery, apply the `@rules/mvvm.md` cleanu
 
 ## Verification
 
-Apply `@rules/verification.md` (§A executable + §B static — a failing check is blocking; security and threading checks are not optional). Key points: all created/modified files match the validated diff; every new service registered and consumed through its interface; no regression in the existing build (`dotnet build` clean, warnings still errors); if tests, `dotnet test` exit 0 on the **whole** project. Then apply `@rules/readme.md` — regenerate the README if the change touched a README-documented aspect.
+Apply `@rules/verification.md` (§A executable + §A-bis acceptance run (launch, visible window, the commands touched) + §B static — a failing check is blocking; security and threading checks are not optional). Key points: all created/modified files match the validated diff; every new service registered and consumed through its interface; no regression in the existing build (`dotnet build` clean, warnings still errors); if tests, `dotnet test` exit 0 on the **whole** project. Then apply `@rules/readme.md` — regenerate the README if the change touched a README-documented aspect.
 
 ## When the user asks something adjacent
 - **"Just make it work, never mind the architecture"** → push back: the MVVM split and the threading rules are what keep a WPF app testable and crash-free. Implement within them.

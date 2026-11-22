@@ -51,6 +51,9 @@ Use the native Claude Code tools (no shell — Windows-compatible):
 ## Services and commands
 [table command → service method → data touched → consuming view]
 
+## Database schema
+[Section included only if a DB is used: tables, columns, version]
+
 ## Conventions
 [MVVM, XAML resource tokens, snackbars, UI thread, security — pointer to the rules]
 

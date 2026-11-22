@@ -24,7 +24,7 @@ The full project source on disk + `README.md` + verified build.
 
 ## Code rules
 
-At start, read and fully apply: `@rules/mvvm.md` · `@rules/xaml.md` · `@rules/threading.md` · `@rules/errors.md` · `@rules/config.md` · `@rules/security.md` · `@rules/logging.md` · `@rules/db.md` (if DB) · `@rules/packaging.md` (if packaging) · `@rules/sf-cli.md` (if Salesforce CLI) · `@rules/splash.md` (if splash screen enabled in Phase 3) · `@rules/tests.md` (if tests) · `@rules/versioning.md` · `@rules/verification.md` (not auto-imported). **Read `design-system.md` and `layout.md`** (no longer auto-imported) before producing any UI. Read `docs/specs/04-architect.md` — it is the locked contract this build follows.
+At start, read and fully apply: `@rules/mvvm.md` · `@rules/xaml.md` · `@rules/threading.md` · `@rules/errors.md` · `@rules/config.md` · `@rules/security.md` · `@rules/logging.md` · `@rules/db.md` (if DB) · `@rules/packaging.md` (if packaging) · `@rules/sf-cli.md` (if Salesforce CLI) · `@rules/splash.md` (if splash screen enabled in Phase 3) · `@rules/tests.md` (if tests) · `@rules/versioning.md` · `@rules/readme.md` · `@rules/verification.md` (not auto-imported). **Read `design-system.md` and `layout.md`** (no longer auto-imported) before producing any UI. Read `docs/specs/04-architect.md` — it is the locked contract this build follows.
 
 Critical reminders:
 
@@ -77,7 +77,7 @@ Apply `@rules/verification.md` — the executable commands (§A, blocking when t
   `dotnet list package --vulnerable --include-transitive` mentioned as the dependency-vulnerability check (`@rules/security.md §7`).
 - **`.gitignore`** written at the project root — template in `@rules/config.md §.gitignore`. Keeps `bin/`, `obj/`, the anchored publish outputs (`/publish/`, `/artifacts/`), `.env`, `tasks/`, `.claude/settings.local.json` + `.claude/agent-memory/`, and the private `docs/specs/` out of the repo, while **never** ignoring `docs/release/CHANGELOG.md`, `.claude/settings.json`, the generated `CLAUDE.md`, `tests/`, or the `Directory.*.props` files.
 - **`docs/release/CHANGELOG.md`** written at the project root (create `docs/release/`), seeded per `@rules/versioning.md` — **in English**, Keep a Changelog shape: the preamble, an empty `## [Unreleased]`, and the initial `## [1.0.0] - <YYYY-MM-DD>` block with `### Added` / `- Initial release.`. The `1.0.0` matches the app version in the `.csproj` `<Version>` / `AppConfig.AppVersion`. Later releases are cut with `/wpf-release`.
-- `README.md` written automatically at the project root: objective, stack, tree, services and commands, conventions, installation.
+- `README.md` written automatically at the project root, in English (`@rules/readme.md`): objective, stack, tree, services and commands, conventions, installation.
 - **`CLAUDE.md`** written at the generated project root (in the user's language), recording the app's identity for future sessions:
 
   ```markdown

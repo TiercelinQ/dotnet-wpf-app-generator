@@ -44,6 +44,8 @@ Project root to maintain? (folder path, e.g. C:\projects\MyApp)
 - add a feature → `/wpf-add-feature`
 - fix a bug → `/wpf-fix-issue`
 - restructure existing code → `/wpf-refactor-code`
+- convert a legacy app to the Fluent baseline → `/wpf-migrate-design`
+- refresh the README → `/wpf-generate-readme`
 - cut a release / bump the version → `/wpf-release`
 - verify the build / run checks → `/wpf-run-tests`
 
