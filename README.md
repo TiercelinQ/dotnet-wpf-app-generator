@@ -61,7 +61,8 @@ dotnet --version    # .NET SDK 10.0+
 ## Getting started
 
 ```bash
-cd dotnet-wpf
+git clone https://github.com/TiercelinQ/dotnet-wpf-app-generator.git
+cd dotnet-wpf-app-generator
 claude
 ```
 

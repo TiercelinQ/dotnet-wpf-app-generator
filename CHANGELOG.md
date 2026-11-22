@@ -4,6 +4,23 @@ All notable changes to this generator are documented in this file.
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 (This is the changelog of the **generator** itself, distinct from the `docs/release/CHANGELOG.md` of each generated app.)
 
+## [2.0.0] - 2026-11-22
+
+### Added
+
+- `.claude/scripts/` with five dependency-free Node scripts: `acceptance-run.mjs` (the `verification.md` A-bis acceptance run: launch, visible window, log, UI Automation commands, theme toggle, process exit; Windows only), `bump-release.mjs`, `run-verification.mjs`, `static-checks.mjs` and `search-sf-catalog.mjs`. Tested on fixtures only, not on a generated project. The commands that could call them are unchanged.
+
+### Changed
+
+- **Major version.** Every skill now carries an `effort` field and a rebalanced `model` (`opus` for `p1-scoping`, `p2-featuring`, `p4-architect`, `fix-issue` and `refactor-code`, `haiku` for `release` and `run-tests`), which changes the cost profile of every command. Values come from the 2026-11-22 cost and quality audit and the Claude Code skill frontmatter documentation.
+- The A-bis acceptance run (launch, visible window, the commands touched) now applies to `wpf-add-feature`, `wpf-fix-issue` and `wpf-run-tests`, not only to Phase 5.
+- `wpf-show-state` names its sources (the latest `docs/sessions/SESSION_*_S*.md`, then `docs/release/CHANGELOG.md`) instead of risking an invented state.
+- `wpf-p5-development` loads `@rules/readme.md` and writes the delivered `README.md` in English; it reads `@rules/xaml.md`, `design-system.md` and `layout.md` only before the batch that delivers the Views.
+- `wpf-save-memory` asks the memory category with `AskUserQuestion` instead of a typed A-D choice.
+- `wpf-app` maintenance menu routes `/wpf-migrate-design` and `/wpf-generate-readme`.
+- `rules/verification.md` lists the skills that load it (all 8 of them, not 4).
+- `wpf-generate-readme` template gains a `## Database schema` section; the README getting-started block clones `dotnet-wpf-app-generator`.
+
 ## [1.3.0] - 2026-11-09
 
 ### Changed

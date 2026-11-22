@@ -2,6 +2,7 @@
 name: wpf-save-session
 description: Save the full state of the generation session into docs/sessions/SESSION_AppName_SN.md — phase, batches, locked decisions, open points, referencing the specs. Invoke at the end of a session.
 model: haiku
+effort: low
 ---
 
 # /wpf-save-session — Session save

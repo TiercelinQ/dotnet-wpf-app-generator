@@ -1,7 +1,8 @@
 ---
 name: wpf-p4-architect
 description: Phase 4 of the WPF app generation cycle — complete architectural contract (tree, role of each file, services and commands, tokens → XAML resources table), written to the contract spec and locked after validation.
-model: sonnet
+model: opus
+effort: high
 ---
 
 # /wpf-p4-architect — Architectural contract

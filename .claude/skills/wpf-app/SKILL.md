@@ -2,6 +2,7 @@
 name: wpf-app
 description: Start menu of the WPF app generator — new app, resume an existing session, load a delivered project, or maintain one. Invoke at the beginning of a conversation or at any time via /wpf-app.
 model: haiku
+effort: low
 ---
 
 # /wpf-app — Start / resume / maintenance menu
@@ -44,6 +45,8 @@ Project root to maintain? (folder path, e.g. C:\projects\MyApp)
 - add a feature → `/wpf-add-feature`
 - fix a bug → `/wpf-fix-issue`
 - restructure existing code → `/wpf-refactor-code`
+- convert a legacy app to the Fluent baseline → `/wpf-migrate-design`
+- refresh the README → `/wpf-generate-readme`
 - cut a release / bump the version → `/wpf-release`
 - verify the build / run checks → `/wpf-run-tests`
 

@@ -2,6 +2,7 @@
 name: wpf-show-contract
 description: Show the complete validated architectural contract (Phase 4) — tree with the role of each file and the services and commands table. Reads docs/specs/04-architect.md.
 model: haiku
+effort: low
 ---
 
 # /wpf-show-contract — Validated architectural contract

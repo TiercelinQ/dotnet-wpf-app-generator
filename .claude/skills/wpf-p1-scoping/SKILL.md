@@ -1,7 +1,8 @@
 ---
 name: wpf-p1-scoping
 description: Phase 1 of the WPF app generation cycle — scoping in up to 8 questions (incl. application icon, packaging, and a conditional Salesforce CLI opt-in shown only when the objective mentions Salesforce), full color palette choice, calibration announcement (number of batches), and writing of the scoping spec.
-model: sonnet
+model: opus
+effort: high
 ---
 
 # /wpf-p1-scoping — Scoping

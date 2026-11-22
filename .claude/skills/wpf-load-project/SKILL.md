@@ -2,6 +2,7 @@
 name: wpf-load-project
 description: Load an existing WPF project (Phase 5 complete) from its specs and README — bring the generator rules to bear on already-delivered code. Invoke from the target project root.
 model: sonnet
+effort: low
 ---
 
 # /wpf-load-project — Load an existing project

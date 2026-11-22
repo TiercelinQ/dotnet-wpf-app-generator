@@ -1,6 +1,6 @@
 # Verification rules - single source of truth
 
-> Centralized, reusable verification for the whole framework. Referenced by `/wpf-p5-development`, `/wpf-add-feature`, `/wpf-fix-issue`, and `/wpf-run-tests` - never duplicated in those skills.
+> Centralized, reusable verification for the whole framework. Referenced by `/wpf-p5-development`, `/wpf-add-feature`, `/wpf-fix-issue`, `/wpf-refactor-code`, `/wpf-migrate-design`, `/wpf-release`, `/wpf-load-project`, and `/wpf-run-tests` - never duplicated in those skills.
 > Two parts: **executable verification** (run real commands) and **static integrity** (read the code). Run silently; report only on a discrepancy.
 
 ---
