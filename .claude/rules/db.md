@@ -117,7 +117,7 @@ internal static class MigrationRunner
 }
 ```
 
-`PRAGMA user_version` does not accept a parameter, so the version is interpolated. It is an `int` key of a compile-time dictionary, never user input - the only interpolated SQL the rules allow, and it carries this comment in the delivered code.
+`PRAGMA user_version` does not accept a parameter, so the version is interpolated. It is an `int` key of a compile-time dictionary, never user input - the only interpolated SQL the rules allow, and the XML `<remarks>` of the migration runner states this in the delivered code.
 
 ### Call from the composition root
 
@@ -160,4 +160,4 @@ Delivered **inside the last code batch** of generation (the batch already carryi
 
 ## Integrity verification
 
-Detailed in `@rules/verification.md`. Key points (if DB != none): `DatabaseService` single access point present; `MigrationRunner` present and called from the composition root before the main window; `AppConfig.DbSchemaVersion` consistent with `max(Migrations)`; no DB access outside `Services/Data/`; SQL 100% parameterized (the `user_version` pragma excepted, commented); every command and connection disposed; every data method cancellable.
+Detailed in `@rules/verification.md`. Key points (if DB != none): `DatabaseService` single access point present; `MigrationRunner` present and called from the composition root before the main window; `AppConfig.DbSchemaVersion` consistent with `max(Migrations)`; no DB access outside `Services/Data/`; SQL 100% parameterized (the `user_version` pragma excepted, justified in the XML remarks of the migration runner); every command and connection disposed; every data method cancellable.

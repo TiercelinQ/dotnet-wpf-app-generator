@@ -84,7 +84,7 @@ shell.Activate();
 
 - The wait is an `await Task.Delay`, never `Thread.Sleep` - the splash must keep rendering (`@rules/threading.md`).
 - `ConfigureAwait(true)` is deliberate here: this code touches windows and must resume on the UI thread.
-- The splash window's `Background` is set from the theme's application background brush. If the dictionaries are not merged yet at that instant, a literal hex is tolerated **once**, commented as sourced from that brush - the single visual literal the rules allow outside the token dictionaries (`@rules/xaml.md`).
+- The splash window's `Background` is set from the theme's application background brush. If the dictionaries are not merged yet at that instant, a literal hex is tolerated **once**, stated in the XML `<remarks>` of the member that sets it as sourced from that brush - the single visual literal the rules allow outside the token dictionaries (`@rules/xaml.md`).
 
 ## Theme
 
@@ -95,7 +95,7 @@ shell.Activate();
 
 - **Do not** create the shell with `Visibility.Hidden` and reveal it from an event - show it once, at the end of the startup sequence.
 - **Do not** bind a `.ico` to an `Image.Source` or an `ImageIcon.Source` - display the PNG.
-- **Do not** hardcode a color or a size in `Splash.xaml` - consume resource keys. The commented `Background` literal in the composition root is the only tolerated exception.
+- **Do not** hardcode a color or a size in `Splash.xaml` - consume resource keys. The `Background` literal in the composition root, justified in its XML remarks, is the only tolerated exception.
 - **Do not** give the splash a ViewModel, a service, or a `DataContext` beyond the app name - it renders and self-dismisses.
 - **Do not** use `Thread.Sleep` for the minimum duration - it freezes the splash into a white rectangle.
 - **Do not** show the splash in the taskbar or let it take focus back from the shell.
@@ -105,4 +105,4 @@ shell.Activate();
 
 ## Integrity verification
 
-Detailed in `@rules/verification.md`. Key points (if splash enabled): `Views/SplashWindow.xaml` + `Themes/Splash.xaml` present; `SplashMinDurationMs` in `AppConfig`; splash created and dismissed in `App.xaml.cs`, the shell shown **once** at the end of the sequence and never created hidden nor revealed from `Loaded`; `StartupUri` absent from `App.xaml`; theme and accent applied before the splash is created; no `Thread.Sleep`; `Splash.xaml` consumes only resource keys (save the commented composition-root background); the displayed logo loaded from `Assets/icon.png`, not from the `.ico`, or text-only fallback.
+Detailed in `@rules/verification.md`. Key points (if splash enabled): `Views/SplashWindow.xaml` + `Themes/Splash.xaml` present; `SplashMinDurationMs` in `AppConfig`; splash created and dismissed in `App.xaml.cs`, the shell shown **once** at the end of the sequence and never created hidden nor revealed from `Loaded`; `StartupUri` absent from `App.xaml`; theme and accent applied before the splash is created; no `Thread.Sleep`; `Splash.xaml` consumes only resource keys (save the composition-root background, justified in its XML remarks); the displayed logo loaded from `Assets/icon.png`, not from the `.ico`, or text-only fallback.

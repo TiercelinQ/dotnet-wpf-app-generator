@@ -104,7 +104,7 @@ Apply `@rules/verification.md` — the executable commands (§A, blocking when t
   - Publish a version: `/wpf-release` (turns the accumulated `[Unreleased]` changelog into a dated version and raises the version number)
   ```
 
-  `[nom-app]` = display name / app name. The version here is the **framework** version declared at the top of the framework `CLAUDE.md` (currently 1.2.0) — not the app's own version (which starts at 1.0.0 in the `.csproj` / `docs/release/CHANGELOG.md`). Replace the `Deviations` list with every deviation validated via the Phase 4/5 deviation protocol (`- [deviation] — reason: [justification]`); if none, keep `- None`.
+  `[nom-app]` = display name / app name. The version here is the **framework** version declared at the top of the framework `CLAUDE.md` (currently 2.0.0) — not the app's own version (which starts at 1.0.0 in the `.csproj` / `docs/release/CHANGELOG.md`). Replace the `Deviations` list with every deviation validated via the Phase 4/5 deviation protocol (`- [deviation] — reason: [justification]`); if none, keep `- None`.
 
 - **`.claude/settings.json`** written at the generated project root so the app stays self-enforced in later maintenance sessions:
 
@@ -160,7 +160,7 @@ Apply `@rules/verification.md` — the executable commands (§A, blocking when t
 
 ## Splash screen — only if enabled in Phase 3
 
-No dedicated batch. Deliver, per `@rules/splash.md`: `SplashMinDurationMs` in `AppConfig.cs` (Batch 1), the splash assets `src/App.Wpf/Views/SplashWindow.xaml` + `src/App.Wpf/Themes/Splash.xaml` (themes/entry batch — last non-test batch), and the splash orchestration in `App.xaml.cs` (shell hidden until `Loaded`, frameless splash window, no ViewModel, no `Thread.Sleep`). If a splash icon path was provided in Phase 3, save it as `Assets/icon.ico`. It counts toward the size, not a separate batch.
+No dedicated batch. Deliver, per `@rules/splash.md`: `SplashMinDurationMs` in `AppConfig.cs` (Batch 1), the splash assets `src/App.Wpf/Views/SplashWindow.xaml` + `src/App.Wpf/Themes/Splash.xaml` (themes/entry batch — last non-test batch), and the splash orchestration in `App.xaml.cs` (shell shown once at the end of the startup sequence and never created hidden, frameless splash window, no ViewModel, no `Thread.Sleep`). If a splash icon path was provided in Phase 3, save it as `Assets/icon.ico`. It counts toward the size, not a separate batch.
 
 ## Seed data — only if DB != none (Phase 1)
 

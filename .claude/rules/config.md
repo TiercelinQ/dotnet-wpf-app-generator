@@ -96,7 +96,8 @@ Versions confirmed against nuget.org on 2026-08-11. They are the framework's sta
 </Project>
 ```
 
-- `TreatWarningsAsErrors` is not negotiable: a warning is a defect, fixed at the root. `#pragma warning disable` requires a written justification on the line above.
+- `TreatWarningsAsErrors` is not negotiable: a warning is a defect, fixed at the root. `#pragma warning disable` requires a written justification in the XML `<remarks>` of the member, and a rebuild without it first proves the diagnostic fires.
+- **`AnalysisMode=Recommended` does not enable every rule.** CA1031 (catching a general exception) is inactive: `catch (Exception)` at the top of a background loop or an `async void` handler compiles without any directive, and a `#pragma warning disable CA1031` suppresses nothing. CA2016 is active: a method that receives a `CancellationToken` and calls `SemaphoreSlim.Wait(0)` writes `Wait(0, CancellationToken.None)`.
 - `EnforceCodeStyleInBuild` makes the `.editorconfig` IDE rules build errors, so `dotnet format` and `dotnet build` agree.
 - **`ImplicitUsings` does not provide `System.IO` in a WPF project.** The SDK removes it to avoid the ambiguity between `System.IO.Path` and `System.Windows.Shapes.Path`. Every file touching `Path`, `File`, `Directory`, `FileInfo`, `DirectoryInfo`, `Stream` or `IOException` declares `using System.IO;` — application **and** test project, as soon as it carries `UseWPF`. The failure is a wave of `CS0103`/`CS0246` that looks like a broken build configuration and is not.
 
