@@ -24,7 +24,7 @@ The full project source on disk + `README.md` + verified build.
 
 ## Code rules
 
-At start, read and fully apply: `@rules/mvvm.md` · `@rules/xaml.md` · `@rules/threading.md` · `@rules/errors.md` · `@rules/config.md` · `@rules/security.md` · `@rules/logging.md` · `@rules/db.md` (if DB) · `@rules/packaging.md` (if packaging) · `@rules/sf-cli.md` (if Salesforce CLI) · `@rules/splash.md` (if splash screen enabled in Phase 3) · `@rules/tests.md` (if tests) · `@rules/versioning.md` · `@rules/readme.md` · `@rules/verification.md` (not auto-imported). **Read `design-system.md` and `layout.md`** (no longer auto-imported) before producing any UI. Read `docs/specs/04-architect.md` — it is the locked contract this build follows.
+At start, read and fully apply: `@rules/mvvm.md` · `@rules/threading.md` · `@rules/errors.md` · `@rules/config.md` · `@rules/security.md` · `@rules/logging.md` · `@rules/db.md` (if DB) · `@rules/packaging.md` (if packaging) · `@rules/sf-cli.md` (if Salesforce CLI) · `@rules/splash.md` (if splash screen enabled in Phase 3) · `@rules/tests.md` (if tests) · `@rules/versioning.md` · `@rules/readme.md` · `@rules/verification.md` (not auto-imported). **Read `@rules/xaml.md`, `design-system.md` and `layout.md`** (no longer auto-imported) only before the batch that delivers the Views, not at start; they stay loaded for the later Themes batch. Skip them for batches without UI. Read `docs/specs/04-architect.md` — it is the locked contract this build follows.
 
 Critical reminders:
 
